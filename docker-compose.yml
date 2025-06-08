@@ -1,0 +1,26 @@
+services:
+  backend:
+    container_name: task_management_system
+    image: task_management_system:latest
+    ports:
+      - 8080:8080
+    environment:
+      - POSTGRES_HOST=postgres
+    networks:
+      - backend_network
+    depends_on:
+      - postgres
+  postgres:
+      image: postgres:15
+      container_name: postgres
+      environment:
+        POSTGRES_DB: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+      ports:
+        - "5433:5432"
+      networks:
+        - backend_network
+networks:
+  backend_network:
+    driver: bridge

@@ -1,0 +1,47 @@
+debug: true
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: always
+
+app:
+  url: http://localhost:8080
+  upload:
+    folder: uploads
+  email-confirmation:
+    enabled: false
+
+spring:
+  application:
+    name: task_management_system
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5433/postgres
+    username: postgres
+    password: postgres
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog.xml
+    drop-first: false
+  jpa:
+    hibernate:
+      show-sql: true
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    security:
+      schemes:
+        bearerAuth:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+
+jwt:
+  access-token-secret: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30
+  access-token-expiration: 3600000 # 1 час в миллисекундах
+  refresh-token-expiration: 604800000 # 7 дней в миллисекундах
+  refresh-token-secret: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
